@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import Question from "./Question";
 
 const initialState = {
-  index : 0,
+  index : 1,
   questions : [],
 };
 
@@ -30,8 +30,8 @@ const next = (state) => {
 }
 
 const previous = (state) => {
-  var result = 0;
-  if (state.index > 0)
+  var result = 1;
+  if (state.index > 1)
     result = state.index - 1;
     return result;  
 }
@@ -39,21 +39,13 @@ const previous = (state) => {
 const Quiz = () => {
   const [state, click] = useReducer(reducer, initialState);
 
-  const nextQuestion = () => {
-    click({type: 'next'});
-  }
-
-  const prevQuestion = () => {
-    click({type: 'previous'});
-  }
-
   return (
     <div className="quiz">
       <div>
         <div className="score">Question {state.index}/8</div>
-        <Question />
-        <div className="next-button" onClick={nextQuestion}>Next</div>
-        <div className="next-button" onClick={prevQuestion} style={{marginTop: '50px'}}>Previous</div>
+        <Question questions={state.questions} name={'Kene'}/>
+        <div className="next-button" onClick={() => click({type: 'next'})}>Next</div>
+        <div className="next-button" onClick={() => click({type: 'previous'})} style={{marginTop: '50px'}}>Previous</div>
       </div>
     </div>
   );
