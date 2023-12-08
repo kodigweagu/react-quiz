@@ -7,21 +7,31 @@ const Quiz = () => {
 
   return (
     <div className="quiz">
+      { state.showResults &&
+        <div className="results">
+          <div className="congratulations">Congratulations</div>
+          <div className="results-info">
+            <div>You have completed the quiz.</div>
+            <div>You've got 4 out of {state.questions.length}</div>
+            <div className="next-button" onClick={() => click({type: 'restart'})}>restart</div>
+          </div>
+        </div>
+      }
       { !state.showResults &&
         <div>
           <div className="score">Question {state.index + 1}/{state.questions.length}</div>
-          {!state.showResults && <Question /> } 
+          <Question />
           {
-            state.index > 0 &&
-            <div className="next-button" onClick={() => click({type: 'previous'})}>Previous</div>
+            state.index === ( state.questions.length - 1 ) &&
+            <div className="next-button" onClick={() => click({type: 'submit'})}>Submit</div>
           }
           {
             state.index < ( state.questions.length - 1 ) &&
-            <div className="next-button" onClick={() => click({type: 'next'})} style={{marginTop: '50px'}}>Next</div>
+            <div className="next-button" onClick={() => click({type: 'next'})}>Next</div>
           }
           {
-            state.index === ( state.questions.length - 1 ) &&
-            <div className="next-button" onClick={() => click({type: 'submit'})} style={{marginTop: '50px'}}>Submit</div>
+            state.index > 0 &&
+            <div className="next-button" onClick={() => click({type: 'previous'})}>Previous</div>
           }
         </div>
       }

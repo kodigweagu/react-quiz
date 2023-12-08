@@ -13,9 +13,12 @@ const reducer = (state, action) => {
     case 'previous':
       previous(result);
       break;
-    case 'submit':
-      showResults(result);
-      break;
+      case 'submit':
+        showResults(result);
+        break;
+      case 'restart':
+        restart(result);
+        break;
     default:
       next(result);
   }
@@ -26,13 +29,16 @@ const next = (state) => {
   if (state.index < state.questions.length - 1)
     state.index += 1;
 }
-
 const previous = (state) => {
   if (state.index > 0)
     state.index -= 1;
 }
 const showResults = (state) => {
   state.showResults = true;
+}
+const restart = (state) => {
+  state.index = 0;
+  state.showResults = false;
 }
 
 export const QuizContext = createContext();

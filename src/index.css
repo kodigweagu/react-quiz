@@ -94,6 +94,7 @@ div {
 
 .next-button {
   margin: 0 auto;
+  margin-top: 10px;
   color: #fff;
   background: #0b0e21;
   width: 300px;
