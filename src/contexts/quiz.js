@@ -1,38 +1,31 @@
 import { createContext, useReducer } from "react";
+import questions from "../data"
 
 const initialState = {
-  index : 1,
-  questions : [],
+  index : 0,
+  questions,
 };
 
 const reducer = (state, action) => {
-  console.log(action.type);
-  var result;
+  var result = {...state};
   switch(action.type) {
     case 'previous':
-      result = previous(state);
+      previous(result);
       break;
     default:
-      result = next(state);
+      next(result);
   }
-  return {
-    index : result,
-    questions : [],
-  };
+  return result;
 };
 
 const next = (state) => {
-  var result = 8;
-  if (state.index < 8)
-    result = state.index + 1;
-  return result;
+  if (state.index < state.questions.length - 1)
+    state.index += 1;
 }
 
 const previous = (state) => {
-  var result = 1;
-  if (state.index > 1)
-    result = state.index - 1;
-    return result;  
+  if (state.index > 0)
+    state.index -= 1;
 }
 
 export const QuizContext = createContext();

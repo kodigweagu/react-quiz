@@ -8,7 +8,7 @@ const Quiz = () => {
   return (
     <div className="quiz">
       <div>
-        <div className="score">Question {state.index}/8</div>
+        <div className="score">Question {state.index + 1}/{state.questions.length}</div>
         <Question />
         <div className="next-button" onClick={() => click({type: 'next'})}>Next</div>
         <div className="next-button" onClick={() => click({type: 'previous'})} style={{marginTop: '50px'}}>Previous</div>
