@@ -4,7 +4,7 @@ import { QuizContext } from "../contexts/quiz";
 
 const Quiz = () => {
   const [state, click] = useContext(QuizContext);
-
+  console.log(state.answers);
   return (
     <div className="quiz">
       { state.showResults &&

@@ -1,13 +1,8 @@
-import { useContext } from "react";
-import { QuizContext } from "../contexts/quiz";
-
-const Answer = () => {
-  const [state] = useContext(QuizContext);
-  var currentQuestion = state.questions[state.index];
+const Answer = props => {
   return (
     <div className="answer">
       <div className="answer-letter">A</div>
-      <div className="answer-text">Text of answer</div>
+      <div className="answer-text">{props.answer}</div>
     </div>
   );
 };

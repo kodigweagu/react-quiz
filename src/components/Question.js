@@ -9,10 +9,9 @@ const Question = () => {
     <div>
       <div className="question">{currentQuestion.question}</div>
       <div className="answers">
-        <Answer />
-        <Answer />
-        <Answer />
-        <Answer />
+        {state.answers.map((answer, index) => (
+          <Answer answer={answer} key={index}/>
+        ))}
       </div>
     </div>
   );
