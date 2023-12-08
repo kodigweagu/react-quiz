@@ -1,8 +1,11 @@
 import Quiz from './components/Quiz';
+import { QuizProvider } from './contexts/quiz';
 
 function App() {
   return (
-    <Quiz />
+    <QuizProvider>
+      <Quiz />
+    </QuizProvider>
   );
 }
 

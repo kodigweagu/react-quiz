@@ -1,7 +1,6 @@
 import Answer from "./Answer";
 
-const Question = ({questions, name}) => {
-  console.log(name)
+const Question = () => {
   return (
     <div>
       <div className="question">Text of our question</div>
