@@ -2,6 +2,7 @@ import { createContext, useReducer } from "react";
 import questions from "../data"
 
 const initialState = {
+  showResults : false,
   index : 0,
   questions,
 };
@@ -11,6 +12,9 @@ const reducer = (state, action) => {
   switch(action.type) {
     case 'previous':
       previous(result);
+      break;
+    case 'submit':
+      showResults(result);
       break;
     default:
       next(result);
@@ -26,6 +30,9 @@ const next = (state) => {
 const previous = (state) => {
   if (state.index > 0)
     state.index -= 1;
+}
+const showResults = (state) => {
+  state.showResults = true;
 }
 
 export const QuizContext = createContext();

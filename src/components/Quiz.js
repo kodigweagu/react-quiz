@@ -7,12 +7,24 @@ const Quiz = () => {
 
   return (
     <div className="quiz">
-      <div>
-        <div className="score">Question {state.index + 1}/{state.questions.length}</div>
-        <Question />
-        <div className="next-button" onClick={() => click({type: 'next'})}>Next</div>
-        <div className="next-button" onClick={() => click({type: 'previous'})} style={{marginTop: '50px'}}>Previous</div>
-      </div>
+      { !state.showResults &&
+        <div>
+          <div className="score">Question {state.index + 1}/{state.questions.length}</div>
+          {!state.showResults && <Question /> } 
+          {
+            state.index > 0 &&
+            <div className="next-button" onClick={() => click({type: 'previous'})}>Previous</div>
+          }
+          {
+            state.index < ( state.questions.length - 1 ) &&
+            <div className="next-button" onClick={() => click({type: 'next'})} style={{marginTop: '50px'}}>Next</div>
+          }
+          {
+            state.index === ( state.questions.length - 1 ) &&
+            <div className="next-button" onClick={() => click({type: 'submit'})} style={{marginTop: '50px'}}>Submit</div>
+          }
+        </div>
+      }
     </div>
   );
 };
