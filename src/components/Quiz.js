@@ -7,21 +7,44 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
-  var result = 8
-  if (state.index < 8)
-    result = state.index + 1
+  console.log(action.type);
+  var result;
+  switch(action.type) {
+    case 'previous':
+      result = previous(state);
+      break;
+    default:
+      result = next(state);
+  }
   return {
     index : result,
     questions : [],
-  }
+  };
 };
 
-const Quiz = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const next = (state) => {
+  var result = 8;
+  if (state.index < 8)
+    result = state.index + 1;
+  return result;
+}
 
-  const testClick = () => {
-    console.log('click')
-    dispatch({type: 'NEXT_QUESTION'});
+const previous = (state) => {
+  var result = 0;
+  if (state.index > 0)
+    result = state.index - 1;
+    return result;  
+}
+
+const Quiz = () => {
+  const [state, click] = useReducer(reducer, initialState);
+
+  const nextQuestion = () => {
+    click({type: 'next'});
+  }
+
+  const prevQuestion = () => {
+    click({type: 'previous'});
   }
 
   return (
@@ -29,7 +52,8 @@ const Quiz = () => {
       <div>
         <div className="score">Question {state.index}/8</div>
         <Question />
-        <div className="next-button" onClick={testClick}>Next question</div>
+        <div className="next-button" onClick={nextQuestion}>Next</div>
+        <div className="next-button" onClick={prevQuestion} style={{marginTop: '50px'}}>Previous</div>
       </div>
     </div>
   );
