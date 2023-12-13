@@ -7,22 +7,31 @@ const initialState = {
   index : 0,
   answers : shuffleAnswers(questions[0]),
   questions,
+  currentAnswer: [],
+  score: [],
 };
 
 const reducer = (state, action) => {
   var result = {...state};
   switch(action.type) {
-    case 'previous':
-      previous(result);
-      break;
     case 'next':
       next(result);
+      break;
+    case 'previous':
+      previous(result);
       break;
     case 'submit':
       showResults(result);
       break;
-    default:
+    case 'restart':
+      initialState.currentAnswer = [];
+      initialState.score = [];
       return initialState;
+    case 'select':
+      select(result, action.selectedAnswer, action.correctAnswer);
+      return result;
+    default:
+      return state;
   }
   result.answers = shuffleAnswers(questions[result.index]);
   return result;
@@ -38,6 +47,10 @@ const previous = (state) => {
 }
 const showResults = (state) => {
   state.showResults = true;
+}
+const select = (state, selectedAnswer, correctAnswer) => {
+  state.currentAnswer[state.index] = selectedAnswer;
+  state.score[state.index] = selectedAnswer === correctAnswer ? 1 : 0;
 }
 
 export const QuizContext = createContext();

@@ -3,14 +3,21 @@ import { useContext } from "react";
 import { QuizContext } from "../contexts/quiz";
 
 const Question = () => {
-  const [state] = useContext(QuizContext);
+  const [state, click] = useContext(QuizContext);
   var currentQuestion = state.questions[state.index];
   return (
     <div>
       <div className="question">{currentQuestion.question}</div>
       <div className="answers">
         {state.answers.map((answer, index) => (
-          <Answer answer={answer} key={index}/>
+          <Answer 
+            key={index}
+            index={index}
+            answer={answer}
+            correctAnswer = {currentQuestion.correctAnswer}
+            currentAnswer = {state.currentAnswer[state.index]}
+            onSelectAnswer={ (answerText) => click({type: 'select', selectedAnswer: answerText, correctAnswer: currentQuestion.correctAnswer })}
+          />
         ))}
       </div>
     </div>

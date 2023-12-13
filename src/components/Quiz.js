@@ -4,7 +4,8 @@ import { QuizContext } from "../contexts/quiz";
 
 const Quiz = () => {
   const [state, click] = useContext(QuizContext);
-  console.log(state.answers);
+  var score = state.score.reduce(function(a, b) { return a + b; }, 0);
+  const disabledClass = state.currentAnswer.length !== state.questions.length ? 'disabled-answer' : '';
   return (
     <div className="quiz">
       { state.showResults &&
@@ -12,7 +13,7 @@ const Quiz = () => {
           <div className="congratulations">Congratulations</div>
           <div className="results-info">
             <div>You have completed the quiz.</div>
-            <div>You've got 4 out of {state.questions.length}</div>
+            <div>You've got {score} out of {state.questions.length}</div>
             <div className="next-button" onClick={() => click({type: 'restart'})}>restart</div>
           </div>
         </div>
@@ -23,7 +24,7 @@ const Quiz = () => {
           <Question />
           {
             state.index === ( state.questions.length - 1 ) &&
-            <div className="next-button" onClick={() => click({type: 'submit'})}>Submit</div>
+            <div className={`next-button ${disabledClass}`} onClick={() => click({type: 'submit'})}>Submit</div>
           }
           {
             state.index < ( state.questions.length - 1 ) &&
