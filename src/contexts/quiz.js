@@ -1,12 +1,11 @@
 import { createContext, useReducer } from "react";
-import questions from "../data"
-import { shuffleAnswers } from "../helpers";
+import { shuffleAnswers, normalizeQuestions } from "../helpers";
 
 const initialState = {
   showResults : false,
   index : 0,
-  answers : shuffleAnswers(questions[0]),
-  questions,
+  questions: [],
+  answers : [],
   currentAnswer: [],
   score: [],
 };
@@ -14,6 +13,9 @@ const initialState = {
 const reducer = (state, action) => {
   var result = {...state};
   switch(action.type) {
+    case 'load':
+      load(result, action.payload);
+      break;
     case 'next':
       next(result);
       break;
@@ -33,10 +35,13 @@ const reducer = (state, action) => {
     default:
       return state;
   }
-  result.answers = shuffleAnswers(questions[result.index]);
+  result.answers = shuffleAnswers(result.questions[result.index]);
   return result;
 };
 
+const load = (result,payload) => {
+  result.questions = normalizeQuestions(payload);
+}
 const next = (state) => {
   if (state.index < state.questions.length - 1)
     state.index += 1;
