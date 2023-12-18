@@ -4,7 +4,7 @@ import { QuizContext } from "../contexts/quiz";
 
 const Quiz = () => {
   const [state, dispatch] = useContext(QuizContext);
-  const dataURL = "https://opentdb.com/api.php?amount=16&category=18&difficulty=easy&type=multiple&encode=url3986";
+  const dataURL = "https://opentdb.com/api.php?amount=3&category=18&difficulty=easy&type=multiple&encode=url3986";
   useEffect(() => {
     if(state.questions.length === 0){
       fetch(dataURL)
@@ -15,7 +15,8 @@ const Quiz = () => {
     }
   });
   var score = state.score.reduce(function(a, b) { return a + b; }, 0);
-  const disabledClass = state.currentAnswer.length !== state.questions.length ? 'disabled-answer' : '';
+  console.log('state', state.currentAnswer.length, state.questions.length)
+  const disabledClass = state.currentAnswer.length === state.questions.length ? '' : 'disabled-answer';
   return (
     <div className="quiz">
       { state.showResults &&
